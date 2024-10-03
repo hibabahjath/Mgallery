@@ -1,0 +1,74 @@
+class Employee(models.Models):
+
+    name=models.Charfield(max_length=200,null=False)
+
+    position=models.Charfield(max_length=200)
+
+    office=models.Charfield(max_length=200)
+
+    age=models.PositiveIntegerfield()
+
+    start_date=models.Datefield()
+
+    salary=models.PositiveIntegerField()
+
+
+q2> query for adding a new record
+
+    > Employee.objects.create(
+                                id=1,
+                                name="hiba",
+                                position="qa"
+                                age="26"
+                                start_date=Date(14-06-2024)
+                                salary=500000
+                                officr="malta"
+    )
+
+
+q2> query from updating an employee record
+
+    >Employee.objects.filter(id=1).update(salary=60000,office="kochi")
+
+q3> query for filtering employees with age and salary
+
+    > Employee.objects.filter(age=40,salary=50000)
+
+q4> query for deleting employee recprd
+
+    Employee.objects.filter(id=1).delete()
+
+q5> employees with salary>25000
+
+    > qs=Employee.objects.filter(salary__gte=25000)
+
+q6> filtering employees with office tokyo
+
+    > qs= Employee.objects.filter(office="tokyo")
+
+q7> query for fetching all records
+
+    > qs=Employee.objects.all()
+
+q8> employees with salary in range of 25k and 50 kochi
+
+    > qs=Employee.objects.filter(salary__gte=25000,salary__lte=50000)
+
+q9> sort employee with salary orser by asc and decsending
+
+    > qs=Employee.objects.all().order_by("salary)  #ascending
+
+        > qs=Employee.objects.all().order_by("-salary) # decsending
+
+q10> employee with highest salary
+
+    max_salary=Employee.objects.all().values("salary").aggregate(sal=Max("salary"))
+    only the slary column of salary is selected with values
+
+    min_salary=Employee.objects.all().values("salary").aggregate(sal=Min("salary"))  
+
+q11> group employee with office
+
+annotate=group chyaan vendeett
+
+office_summary=Employee.objects.all().values("office").annotate(cnt=Count("office"))
